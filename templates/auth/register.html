@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="auth-card">
+    <div class="branding">
+        <h1>Create MET Account</h1>
+        <p>Join the verification wave.</p>
+    </div>
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            {% if field.name == "role" %}
+                <div class="radio-group">
+                    <p>{{ field.label }}</p>
+                    {{ field }}
+                </div>
+            {% else %}
+                <label>{{ field.label }}
+                    {{ field }}
+                </label>
+            {% endif %}
+            {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+            {% for error in field.errors %}
+                <p class="field-error">{{ error }}</p>
+            {% endfor %}
+        {% endfor %}
+        <button type="submit" class="primary-btn">Create account</button>
+    </form>
+    <p class="auth-switch">Already on MET? <a href="{% url 'login' %}">Go to login</a></p>
+</div>
+{% endblock %}
+

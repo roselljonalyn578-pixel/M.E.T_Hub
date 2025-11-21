@@ -1,0 +1,71 @@
+{% extends "met_layout.html" %}
+{% block page_title %}Project History{% endblock %}
+{% block main_content %}
+<header class="hero">
+    <div>
+        
+        <h1>History of Uploads</h1>
+        <p>Review everything you or your collaborators submitted to MET. Track evidence, file types, and timestamps.</p>
+    </div>
+</header>
+
+<section class="glass-panel table-panel">
+    <header>
+        <h2>Information's List</h2>
+       
+    </header>
+    <div class="table-wrapper">
+        {% if history %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    {% if is_admin %}<th>User</th>{% endif %}
+                    <th>Type</th>
+                    <th>Filename</th>
+                    <th>Size</th>
+                    <th>Uploaded</th>
+                    <th>View</th>
+                    {% if is_admin %}<th>Actions</th>{% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for upload in history %}
+                <tr>
+                    <td>{{ upload.public_id }}</td>
+                    {% if is_admin %}<td>{{ upload.user.username }}</td>{% endif %}
+                    <td>{{ upload.get_file_type_display }}</td>
+                    <td>{{ upload.file_name|default:"-" }}</td>
+                    <td>
+                        {% if upload.file_size %}
+                            {{ upload.file_size|filesizeformat }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td>{{ upload.created_at|date:"M d, Y H:i" }}</td>
+                    <td>
+                        {% if upload.file %}
+                            <a href="{{ upload.file.url }}" target="_blank">Open</a>
+                        {% elif upload.link_url %}
+                            <a href="{{ upload.link_url }}" target="_blank">Visit</a>
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    {% if is_admin %}
+                    <td class="table-actions">
+                        <a class="danger-btn" href="{% url 'upload_delete' upload.id %}">Delete</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p class="empty">No uploads yet.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+

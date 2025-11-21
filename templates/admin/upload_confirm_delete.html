@@ -1,0 +1,19 @@
+{% extends "met_layout.html" %}
+{% block page_title %}Delete {{ upload.public_id }}{% endblock %}
+{% block main_content %}
+<section class="glass-panel">
+    <header>
+        <h2>Delete {{ upload.public_id }}</h2>
+        <p class="muted">This action cannot be undone.</p>
+    </header>
+    <p>Are you sure you want to remove <strong>{{ upload.idea }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="table-actions">
+            <a href="{% url 'project' %}" class="danger-btn cancel-btn">Cancel</a>
+            <button type="submit" class="danger-btn">Delete</button>
+        </div>
+    </form>
+</section>
+{% endblock %}
+

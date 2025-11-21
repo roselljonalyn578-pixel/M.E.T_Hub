@@ -1,0 +1,67 @@
+{% extends "met_layout.html" %}
+{% block page_title %}Statistics{% endblock %}
+{% block main_content %}
+<header class="hero">
+    <div>
+        <p class="eyebrow">Analytics</p>
+        <h1>Prediction Confidence</h1>
+        <p>Gauge how reliable recent investigations are and compare ideas.</p>
+    </div>
+</header>
+
+<section class="glass-panel stat-panel">
+    <header>
+        <h2>Average Confidence</h2>
+        <p class="muted">Overall prediction confidence across all uploads</p>
+    </header>
+    {% if avg_confidence %}
+        <p class="stat-value">{{ avg_confidence }}%</p>
+        <p class="muted">Average confidence</p>
+    {% else %}
+        <p class="empty">No predictions yet.</p>
+    {% endif %}
+
+    {% if idea_stats %}
+        <ul class="stat-list">
+            {% for stat in idea_stats %}
+                <li>
+                    <strong>{{ stat.idea }}</strong>
+                    <span>{{ stat.avg_conf|floatformat:2 }}% · {{ stat.total }} upload{{ stat.total|pluralize }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif idea_stats is not None %}
+        <p class="empty">No idea insights yet.</p>
+    {% endif %}
+</section>
+
+<section class="glass-panel">
+    <header>
+        <h2>ID confidence map</h2>
+        <p class="muted">Each submission’s average confidence{% if is_admin %} with uploader details{% endif %}.</p>
+    </header>
+    {% if id_confidence %}
+        <ul class="stat-list">
+            {% for entry in id_confidence %}
+                <li class="stat-row">
+                    <div>
+                        <strong>{{ entry.public_id }}</strong>
+                        <span class="muted">
+                            {{ entry.avg_conf|floatformat:2 }}%
+                            {% if is_admin %} · {{ entry.user__username }}{% endif %}
+                        </span>
+                    </div>
+                    {% if is_admin %}
+                    <div class="table-actions">
+                        <a class="danger-btn" href="{% url 'upload_delete' entry.id %}">Delete</a>
+                    </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty">No IDs to report yet.</p>
+    {% endif %}
+</section>
+{% endblock %}
+

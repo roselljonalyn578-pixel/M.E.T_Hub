@@ -1,0 +1,69 @@
+{% extends "met_layout.html" %}
+{% block page_title %}Reports{% endblock %}
+{% block main_content %}
+<header class="hero">
+    <div>
+        <p class="eyebrow">Monthly digest</p>
+        <h1>Latest Upload Window</h1>
+        <p>See what evidence entered the hub within the current month.</p>
+    </div>
+</header>
+
+<section class="glass-panel list-panel">
+    <header>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+            <div>
+                <h2>Uploads this month</h2>
+                <p class="muted">Timestamped for quick auditing.</p>
+            </div>
+            <form method="get" style="display: flex; gap: 0.5rem; align-items: center;">
+                <select name="month" onchange="this.form.submit()">
+                    <option value="1" {% if selected_month == 1 %}selected{% endif %}>January</option>
+                    <option value="2" {% if selected_month == 2 %}selected{% endif %}>February</option>
+                    <option value="3" {% if selected_month == 3 %}selected{% endif %}>March</option>
+                    <option value="4" {% if selected_month == 4 %}selected{% endif %}>April</option>
+                    <option value="5" {% if selected_month == 5 %}selected{% endif %}>May</option>
+                    <option value="6" {% if selected_month == 6 %}selected{% endif %}>June</option>
+                    <option value="7" {% if selected_month == 7 %}selected{% endif %}>July</option>
+                    <option value="8" {% if selected_month == 8 %}selected{% endif %}>August</option>
+                    <option value="9" {% if selected_month == 9 %}selected{% endif %}>September</option>
+                    <option value="10" {% if selected_month == 10 %}selected{% endif %}>October</option>
+                    <option value="11" {% if selected_month == 11 %}selected{% endif %}>November</option>
+                    <option value="12" {% if selected_month == 12 %}selected{% endif %}>December</option>
+                </select>
+                <select name="year" onchange="this.form.submit()">
+                    {% for year in year_range %}
+                        <option value="{{ year }}" {% if selected_year == year %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+    </header>
+    <ul class="report-list">
+        {% for entry in monthly_report %}
+            <li>
+                <div>
+                    <span class="upload-id">{{ entry.public_id }}</span>
+                    <strong>{{ entry.idea }}</strong>
+                    <span>{{ entry.get_file_type_display }}</span>
+                    <small class="muted">by {{ entry.user.username }}</small>
+                </div>
+                <div class="report-actions">
+                    <span>{{ entry.created_at|date:"M d, Y" }}</span>
+                    <div class="table-actions">
+                        {% if entry.file %}
+                            <a class="secondary-btn" href="{{ entry.file.url }}" target="_blank" style="padding: 0.4rem 0.8rem; border-radius: 50%;">Open</a>
+                        {% elif entry.link %}
+                            <a class="secondary-btn" href="{{ entry.link }}" target="_blank" style="padding: 0.4rem 0.8rem; border-radius: 50%;">Open</a>
+                        {% endif %}
+                        <a class="danger-btn" href="{% url 'upload_delete' entry.id %}">Delete</a>
+                    </div>
+                </div>
+            </li>
+        {% empty %}
+            <li class="empty">Nothing logged this month.</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}
+

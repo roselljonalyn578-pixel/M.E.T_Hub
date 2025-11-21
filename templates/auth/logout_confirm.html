@@ -1,0 +1,17 @@
+{% extends "met_layout.html" %}
+{% block page_title %}Logout{% endblock %}
+{% block main_content %}
+<section class="glass-panel" style="max-width: 500px; margin: 2rem auto;">
+    <header style="text-align: center;">
+        <h2>Logout Confirmation</h2>
+        <p class="muted">Are you sure you want to logout?</p>
+    </header>
+    <form method="post" style="margin-top: 2rem;">
+        {% csrf_token %}
+        <div class="table-actions" style="display: flex; flex-direction: column; gap: 1rem; align-items: center; width: 100%;">
+            <button type="submit" class="primary-btn" style="width: 200px;">Yes</button>
+            <a href="{% url 'dashboard' %}" class="primary-btn" style="display: inline-block; text-align: center; width: 200px;">No</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "met_layout.html" %}
+{% block page_title %}Profile{% endblock %}
+{% block main_content %}
+<header class="hero">
+    <div>
+        
+        <h1>Your MET Identity</h1>
+        <p>Review the details tied to this login and recent contribution stats.</p>
+    </div>
+</header>
+
+<section class="glass-panel profile-card">
+    <header>
+        <h2>Profile overview</h2>
+        
+    </header>
+    <p class="profile-name">{{ profile.first_name|default:profile.username }}</p>
+    <p class="muted">{{ profile.email|default:"No email set" }}</p>
+    <p class="role-chip">{{ profile.get_role_display }}</p>
+</section>
+
+<section class="glass-panel">
+    <header>
+        <h2>Activity snapshot</h2>
+        <p class="muted">Quick stats about your investigations.</p>
+    </header>
+    <div class="summary-row">
+        <article class="summary-card">
+            <p class="label">Total Uploads</p>
+            <p class="value">{{ summary.uploads }}</p>
+        </article>
+        <article class="summary-card">
+            <p class="label">Recent (7 days)</p>
+            <p class="value">{{ summary.recent }}</p>
+        </article>
+        <article class="summary-card">
+            <p class="label">Tracked ideas</p>
+            <p class="value">{{ summary.statistics }}</p>
+        </article>
+    </div>
+</section>
+
+<section class="glass-panel predictions-panel">
+    <header>
+        <h2>Recent uploads</h2>
+        <p class="muted">Your latest submissions</p>
+    </header>
+    <div class="cards">
+        {% for upload in history|slice:":6" %}
+            <article class="prediction-card">
+                <header>
+                    <p class="idea">{{ upload.idea }}</p>
+                    <span class="type">{{ upload.get_file_type_display }}</span>
+                    <span class="upload-id">{{ upload.public_id }}</span>
+                </header>
+                <p class="confidence">{{ upload.prediction_confidence|floatformat:2 }}%</p>
+                <p class="verdict">{{ upload.verdict }}</p>
+                <p class="timestamp">{{ upload.created_at|timesince }} ago</p>
+            </article>
+        {% empty %}
+            <p class="empty">No uploads yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="glass-panel ads-corner">
+    <header>
+        <h2>Ads & Corner</h2>
+        <p class="muted">Featured content and announcements</p>
+    </header>
+    <div class="ads-grid">
+        <a href="{% url 'logo' %}" class="ad-card ad-logo" style="text-decoration: none; color: inherit;">
+            <div class="ad-badge">LOGO</div>
+            <div class="ad-image-placeholder">
+                <span class="ad-icon">🏢</span>
+            </div>
+            <h3>Brand Partnership</h3>
+            <p>Collaborate with trusted organizations fighting misinformation.</p>
+        </a>
+        <a href="{% url 'poster' %}" class="ad-card ad-poster" style="text-decoration: none; color: inherit;">
+            <div class="ad-badge">POSTER</div>
+            <div class="ad-image-placeholder">
+                <span class="ad-icon">📢</span>
+            </div>
+            <h3>Awareness Campaign</h3>
+            <p>Join our mission to promote truth and combat false information online.</p>
+        </a>
+        <a href="{% url 'advertisement' %}" class="ad-card ad-advertisement" style="text-decoration: none; color: inherit;">
+            <div class="ad-badge">AD</div>
+            <div class="ad-image-placeholder">
+                <span class="ad-icon">💡</span>
+            </div>
+            <h3>Premium Features</h3>
+            <p>Unlock advanced analytics and enhanced verification tools.</p>
+        </a>
+    </div>
+</section>
+{% endblock %}
+

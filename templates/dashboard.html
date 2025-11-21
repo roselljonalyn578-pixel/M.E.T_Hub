@@ -1,0 +1,89 @@
+{% extends "met_layout.html" %}
+{% block page_title %}Dashboard{% endblock %}
+{% block main_content %}
+<header class="hero">
+    <div>
+        <p class="eyebrow">Welcome!</p>
+        <h1>Guard Your Privacy</h1>
+        <p>Upload evidence, track verification progress, and keep misinformation at bay.</p>
+    </div>
+    <form method="get" class="search-box">
+        <input type="text" name="search" placeholder="Search projects..." value="{{ search_query }}">
+        <button type="submit">🔍</button>
+    </form>
+</header>
+
+{% if not is_admin %}
+<section id="actions" class="action-strip">
+    <div class="action-card">
+        <div>
+            <p class="action-title">Upload LINK</p>
+        </div>
+        <a href="#upload-form">Upload</a>
+    </div>
+    <div class="action-card">
+        <div>
+            <p class="action-title">Upload VIDEO</p>
+        </div>
+        <a href="#upload-form">Upload</a>
+    </div>
+    <div class="action-card">
+        <div>
+            <p class="action-title">Upload IMAGE</p>
+        </div>
+        <a href="#upload-form">Upload</a>
+    </div>
+</section>
+
+    <section id="upload-form" class="glass-panel form-panel">
+        <div>
+            <h2>Submit new evidence</h2>
+            <p>Provide as much context as possible so the prediction is more accurate.</p>
+        </div>
+        <form method="post" enctype="multipart/form-data" class="upload-form" data-dynamic-upload>
+            {% csrf_token %}
+            {% for field in form %}
+                <label class="upload-field" data-field="{{ field.name }}">
+                    {{ field.label }} {{ field }}
+                    {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+                    {% for error in field.errors %}
+                        <span class="field-error">{{ error }}</span>
+                    {% endfor %}
+                </label>
+            {% endfor %}
+            <button type="submit" class="primary-btn">Upload for verification</button>
+        </form>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('[data-dynamic-upload]');
+            if (!form) return;
+            const typeSelect = form.querySelector('select[name="file_type"]');
+            if (!typeSelect) return;
+            const fieldBlocks = Array.from(form.querySelectorAll('.upload-field'));
+            const rules = {
+                image: ['file_type', 'file'],
+                video: ['file_type', 'file'],
+                link: ['file_type', 'link_url']
+            };
+
+            function applyVisibility() {
+                const allowed = rules[typeSelect.value] || fieldBlocks.map(block => block.dataset.field);
+                fieldBlocks.forEach(block => {
+                    block.style.display = allowed.includes(block.dataset.field) ? '' : 'none';
+                });
+            }
+
+            typeSelect.addEventListener('change', applyVisibility);
+            applyVisibility();
+        });
+    </script>
+{% else %}
+    <section class="glass-panel admin-note">
+        <h2>Administrator view</h2>
+        <p>Review collaborator submissions, monitor statistics, and generate monthly reports from the sections below.</p>
+        <p>Navigate to Project, Statistics, Reports, or Profile sections using the menu.</p>
+    </section>
+{% endif %}
+{% endblock %}
+

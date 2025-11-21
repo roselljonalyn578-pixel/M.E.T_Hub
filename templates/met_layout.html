@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% block page_title %}MET{% endblock %}{% endblock %}
+{% block body_class %}dashboard-body{% endblock %}
+{% block content %}
+<div class="met-hub-screen">
+    <aside class="nav-panel">
+        <a href="{% url 'dashboard' %}" class="nav-logo">
+            <img src="{% static 'hub/met-logo.png' %}" alt="MET HUB logo">
+            <div>
+                <p class="brand-name">MET HUB</p>
+                <small>Misinformation &amp; Erosion Truth Hub</small>
+            </div>
+        </a>
+        <nav>
+            <a href="{% url 'dashboard' %}#actions" class="nav-item">
+                <span class="icon">⭐</span>
+                <span>Home</span>
+            </a>
+            <a href="{% url 'project' %}" class="nav-item">
+                <span class="icon">📁</span>
+                <span>Project</span>
+            </a>
+            <a href="{% url 'statistics' %}" class="nav-item">
+                <span class="icon">📊</span>
+                <span>Statistics</span>
+            </a>
+            {% if request.user.is_staff or request.user.role == "admin" %}
+            <a href="{% url 'reports' %}" class="nav-item">
+                <span class="icon">📄</span>
+                <span>Reports</span>
+            </a>
+            {% endif %}
+            <a href="{% url 'profile' %}" class="nav-item">
+                <span class="icon">👤</span>
+                <span>Profile</span>
+            </a>
+        </nav>
+        <div class="logout-form">
+            <a href="{% url 'logout' %}" class="nav-item logout">
+                <span class="icon">⎋</span>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="neon-main">
+        <a href="#" class="about-link" data-tooltip="A web-based platform designed to detect and analyze misleading or false information shared online. Developed using Django for the backend and MobileNet, a lightweight convolutional neural network (CNN), for content classification, the system allows users to upload links, images, or videos.">ⓘ About</a>
+        {% block main_content %}{% endblock %}
+    </main>
+</div>
+{% endblock %}
+

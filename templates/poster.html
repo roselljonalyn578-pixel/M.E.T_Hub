@@ -1,0 +1,33 @@
+{% extends "met_layout.html" %}
+{% load static %}
+{% block page_title %}Poster{% endblock %}
+{% block main_content %}
+<header class="hero">
+    <div>
+        <h1>Awareness Campaign</h1>
+        <p>Join our mission to promote truth</p>
+    </div>
+</header>
+
+<section class="glass-panel">
+    <div style="text-align: center;">
+        <img src="{% static 'hub/poster.png' %}" alt="MET Campaign Poster" style="max-width: 500px; width: 100%; height: auto; border-radius: 24px; box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3);">
+    </div>
+    <div style="margin-top: 2rem; text-align: center;">
+        <h2>Combat Misinformation Together</h2>
+        <p class="muted">Help us spread awareness and verify information before sharing</p>
+    </div>
+    <div style="margin-top: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+        <h3 style="color: var(--accent); margin-bottom: 1rem;">About This Poster</h3>
+        <p style="color: var(--text-light); line-height: 1.8; text-align: justify; margin-bottom: 1rem;">
+            This Met Hub poster is designed to raise awareness about the importance of personal data protection in a bold, clear, and engaging way. At the top, the Met Hub logo appears inside a speech-bubble shape, symbolizing communication, trust, and digital interaction. Beside it, a large red hand acts as a universal "stop" signal—reminding viewers to pause and think before sharing personal information.
+        </p>
+        <p style="color: var(--text-light); line-height: 1.8; text-align: justify; margin-bottom: 1rem;">
+            The central message, "YOUR PRIVACY MATTERS!", is written in strong, white, uppercase text to emphasize urgency and importance. Below the message, colorful silhouettes of people represent users from all backgrounds, highlighting that privacy is a right for everyone. A yellow padlock icon reinforces themes of digital security, safety, and protection.
+        </p>
+        <p style="color: var(--text-light); line-height: 1.8; text-align: justify;">
+            The closing line, "JOIN MET HUB — PROTECT WHAT'S YOURS.", invites users to be part of a platform that prioritizes safeguarding personal data. Overall, the poster communicates Met Hub's commitment to privacy, safety, and responsible digital interaction in a visually direct and user-friendly way.
+        </p>
+    </div>
+</section>
+{% endblock %}

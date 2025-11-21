@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="auth-card">
+    <div class="branding">
+        <h1>MET Access</h1>
+        <p>Misinformation &amp; Erosion Truth Hub</p>
+    </div>
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <label>Username
+            {{ form.username }}
+        </label>
+        <label>Password
+            {{ form.password }}
+        </label>
+        <div class="radio-group">
+            <p>Sign in as</p>
+            {{ form.role }}
+        </div>
+        {% for error in form.role.errors %}
+            <p class="field-error">{{ error }}</p>
+        {% endfor %}
+        <button type="submit" class="primary-btn">Sign in</button>
+    </form>
+    <p class="auth-switch">Need an account? <a href="{% url 'register' %}">Register</a></p>
+</div>
+{% endblock %}
+
