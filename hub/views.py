@@ -233,3 +233,9 @@ def poster_view(request):
 @login_required(login_url="login")
 def advertisement_view(request):
     return render(request, "advertisement.html")
+
+
+def welcome_view(request):
+    if request.user.is_authenticated:
+        return redirect("dashboard")
+    return render(request, "welcome.html")

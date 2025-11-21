@@ -14,10 +14,12 @@ from .views import (
     logo_view,
     poster_view,
     advertisement_view,
+    welcome_view,
 )
 
 urlpatterns = [
-    path("", dashboard_view, name="dashboard"),
+    path("", welcome_view, name="welcome"),
+    path("dashboard/", dashboard_view, name="dashboard"),
     path("project/", project_view, name="project"),
     path("statistics/", statistics_view, name="statistics"),
     path("reports/", reports_view, name="reports"),
