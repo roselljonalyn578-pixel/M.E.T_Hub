@@ -444,9 +444,9 @@ input[type="radio"] {
 /* --- Welcome Page --- */
 .welcome-page {
     min-height: 100vh;
-    display: flex;
+    display: grid;
+    grid-template-columns: 300px 1fr;
     align-items: center;
-    justify-content: center;
     padding: 2rem;
     background: #001a33;
     position: relative;
@@ -474,6 +474,13 @@ input[type="radio"] {
     right: 15%;
 }
 
+.welcome-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
 .welcome-content {
     display: flex;
     flex-direction: column;
@@ -482,11 +489,6 @@ input[type="radio"] {
     text-align: center;
     z-index: 1;
     padding: 2rem;
-    max-width: 900px;
-}
-
-.welcome-logo {
-    margin-bottom: 2rem;
 }
 
 .welcome-title {
@@ -962,3 +964,99 @@ input[type="radio"] {
     }
 }
 
+
+
+/* Welcome Page */
+.welcome-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    background: #001a33;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-page::before,
+.welcome-page::after {
+    content: '🔒';
+    position: absolute;
+    font-size: 30rem;
+    opacity: 0.02;
+    filter: blur(10px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.welcome-page::before {
+    top: -5rem;
+    left: -8rem;
+}
+
+.welcome-page::after {
+    bottom: -8rem;
+    right: -5rem;
+}
+
+.welcome-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border-right: 1px solid rgba(0, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-logo img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+}
+
+.welcome-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-title {
+    font-size: 4rem;
+    margin: 0 0 1.5rem 0;
+    background: linear-gradient(135deg, #00ffff, #a020f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+}
+
+.welcome-tagline {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 3rem 0;
+    text-align: center;
+    max-width: 600px;
+}
+
+.welcome-btn {
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    background: linear-gradient(120deg, #6a5acd, #a020f0);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(106, 90, 205, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.welcome-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(106, 90, 205, 0.6);
+}
