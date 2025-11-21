@@ -444,9 +444,9 @@ input[type="radio"] {
 /* --- Welcome Page --- */
 .welcome-page {
     min-height: 100vh;
-    display: grid;
-    grid-template-columns: 300px 1fr;
+    display: flex;
     align-items: center;
+    justify-content: center;
     padding: 2rem;
     background: #001a33;
     position: relative;
@@ -474,13 +474,6 @@ input[type="radio"] {
     right: 15%;
 }
 
-.welcome-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-}
-
 .welcome-content {
     display: flex;
     flex-direction: column;
@@ -489,6 +482,11 @@ input[type="radio"] {
     text-align: center;
     z-index: 1;
     padding: 2rem;
+    max-width: 900px;
+}
+
+.welcome-logo {
+    margin-bottom: 2rem;
 }
 
 .welcome-title {

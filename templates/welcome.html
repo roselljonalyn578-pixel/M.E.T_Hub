@@ -9,10 +9,10 @@
 </head>
 <body>
     <div class="welcome-page">
-        <div class="welcome-logo">
-            {% include "logo.html" %}
-        </div>
         <div class="welcome-content">
+            <div class="welcome-logo">
+                {% include "logo.html" %}
+            </div>
             <h1 class="welcome-title">Welcome to MET HUB</h1>
             <p class="welcome-tagline">Spreading fake news is like spreading Virus, make sure to check it with METHUB</p>
             <a href="{% url 'login' %}" class="welcome-btn">Login</a>
