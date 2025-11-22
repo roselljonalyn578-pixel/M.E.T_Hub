@@ -49,7 +49,7 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
         messages.success(request, "You have been logged out successfully.")
-        return redirect("login")
+        return redirect("welcome")
     return render(request, "auth/logout_confirm.html")
 
 
