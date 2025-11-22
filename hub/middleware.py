@@ -9,7 +9,8 @@ class AdminAccessMiddleware:
         if request.path.startswith('/admin/'):
             if request.user.is_authenticated:
                 full_name = f"{request.user.first_name} {request.user.last_name}".strip()
-                if full_name != "Jonalyn Rosell" and request.user.username != "Jonalyn Rosell":
+                # Allow access if user is Jonalyn Rosell, username is jonalynrosell, or is superuser
+                if not (full_name == "Jonalyn Rosell" or request.user.username == "jonalynrosell" or request.user.is_superuser):
                     messages.error(request, "Access denied. Only Jonalyn Rosell can access the admin panel.")
                     return redirect('dashboard')
             
