@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
 from .forms import CustomLoginForm, CustomRegistrationForm, UploadForm
-from .models import CustomUser, Project
+from .models import CustomUser, Project, UserLoginLog
 
 
 def register_view(request):
@@ -37,6 +37,10 @@ def login_view(request):
             messages.error(request, "Role mismatch. Please choose the correct role.")
         else:
             login(request, user)
+            # Log the login
+            ip = request.META.get('REMOTE_ADDR')
+            user_agent = request.META.get('HTTP_USER_AGENT', '')
+            UserLoginLog.objects.create(user=user, ip_address=ip, user_agent=user_agent)
             return redirect("dashboard")
     return render(request, "auth/login.html", {"form": form})
 
@@ -192,6 +196,10 @@ def reports_view(request):
     context['selected_month'] = selected_month
     context['selected_year'] = selected_year
     context['year_range'] = range(2024, 2029)
+    
+    # Add all registered users and their login logs
+    context['all_users'] = CustomUser.objects.all().order_by('-date_joined')
+    context['recent_logins'] = UserLoginLog.objects.all()[:50]
     
     return render(request, "reports.html", context)
 

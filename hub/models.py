@@ -113,3 +113,18 @@ class Statistic(models.Model):
 
     def __str__(self) -> str:
         return f"{self.metric_name}: {self.metric_value} ({self.project.idea})"
+
+
+class UserLoginLog(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="login_logs"
+    )
+    login_time = models.DateTimeField(auto_now_add=True)
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    user_agent = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["-login_time"]
+
+    def __str__(self) -> str:
+        return f"{self.user.username} - {self.login_time}"

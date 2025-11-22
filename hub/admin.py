@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import CustomUser, Project, Statistic
+from .models import CustomUser, Project, Statistic, UserLoginLog
 
 
 @admin.register(CustomUser)
@@ -33,3 +33,10 @@ class StatisticAdmin(admin.ModelAdmin):
     list_display = ("metric_name", "metric_value", "project", "recorded_at")
     list_filter = ("metric_name", "recorded_at")
     search_fields = ("metric_name", "project__idea", "notes")
+
+
+@admin.register(UserLoginLog)
+class UserLoginLogAdmin(admin.ModelAdmin):
+    list_display = ("user", "login_time", "ip_address")
+    list_filter = ("login_time",)
+    search_fields = ("user__username", "ip_address")
