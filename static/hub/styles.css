@@ -960,6 +960,19 @@ input[type="radio"] {
 
 
 
-.welcome-logo-img { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 40px rgba(0, 255, 255, 0.5); margin-bottom: 2rem; }
+.welcome-logo-img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.welcome-logo-img:hover {
+    box-shadow: 0 0 50px rgba(255, 0, 255, 0.8);
+}
 / *   L o g o   u p d a t e   * /    
  
