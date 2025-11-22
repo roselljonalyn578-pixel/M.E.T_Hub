@@ -957,3 +957,18 @@ input[type="radio"] {
     }
 }
 
+
+.welcome-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.welcome-logo-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+}

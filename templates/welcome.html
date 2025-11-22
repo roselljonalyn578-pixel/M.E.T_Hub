@@ -10,7 +10,10 @@
 <body>
     <div class="welcome-page">
         <div class="welcome-content">
-            <h1 class="welcome-title">Welcome to MET HUB</h1>
+            <div class="welcome-header">
+                <img src="{% static 'hub/met-logo.png' %}" alt="MET HUB Logo" class="welcome-logo-img">
+                <h1 class="welcome-title">Welcome to MET HUB</h1>
+            </div>
             <p class="welcome-tagline">Spreading fake news is like spreading virus makes sure to check it with MET HUB</p>
             <a href="{% url 'login' %}" class="welcome-btn">Login</a>
         </div>
