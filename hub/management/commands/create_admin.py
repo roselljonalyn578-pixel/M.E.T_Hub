@@ -21,7 +21,7 @@ class Command(BaseCommand):
             user.is_superuser = True
             user.role = 'admin'
             user.save()
-            self.stdout.write(self.style.SUCCESS(f'Updated admin user: {username}'))
+            self.stdout.write(self.style.SUCCESS(f'Updated: {username} - is_staff={user.is_staff}, is_superuser={user.is_superuser}'))
         else:
             user = CustomUser.objects.create_superuser(
                 username=username,
