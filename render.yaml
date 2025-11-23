@@ -2,7 +2,7 @@ services:
   - type: web
     name: met-hub
     env: python
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate && python manage.py create_admin
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate --fake-initial && python manage.py create_admin
     startCommand: gunicorn MET.wsgi:application
     envVars:
       - key: SECRET_KEY
