@@ -8,6 +8,13 @@ services:
       - key: SECRET_KEY
         sync: false
       - key: DEBUG
-        value: False
+        value: True
+        sync: false
+      - key: DJANGO_SUPERUSER_USERNAME
+        sync: false
+      - key: DJANGO_SUPERUSER_EMAIL
+        sync: false
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false
       - key: DJANGO_ALLOWED_HOSTS
         sync: false
