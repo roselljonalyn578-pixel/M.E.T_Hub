@@ -20,12 +20,23 @@ class ProjectAdmin(admin.ModelAdmin):
         "idea",
         "user",
         "file_type",
+        "file_link",
         "prediction_confidence",
         "verdict",
         "created_at",
     )
     list_filter = ("file_type", "verdict", "created_at")
     search_fields = ("public_id", "idea", "user__username", "file_name")
+    readonly_fields = ("file_link", "file_size", "created_at")
+
+    def file_link(self, obj):
+        if obj.file:
+            return f'<a href="{obj.file.url}" target="_blank">Open File</a>'
+        elif obj.link_url:
+            return f'<a href="{obj.link_url}" target="_blank">Open Link</a>'
+        return "No file"
+    file_link.short_description = "File"
+    file_link.allow_tags = True
 
 
 @admin.register(Statistic)

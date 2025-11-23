@@ -23,7 +23,7 @@ class Command(BaseCommand):
             user.save()
             self.stdout.write(self.style.SUCCESS(f'Updated admin user: {username}'))
         else:
-            CustomUser.objects.create_superuser(
+            user = CustomUser.objects.create_superuser(
                 username=username,
                 email=email,
                 password=password,
@@ -31,4 +31,7 @@ class Command(BaseCommand):
                 last_name=last_name,
                 role='admin'
             )
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
             self.stdout.write(self.style.SUCCESS(f'Created admin user: {username}'))
