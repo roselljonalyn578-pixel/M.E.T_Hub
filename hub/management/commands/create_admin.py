@@ -7,9 +7,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            username = 'jonalynrosell'
+            username = 'jona'
             email = 'jonalyn.rosell@example.com'
-            password = 'jude_jona@21'
+            password = 'pelimer2003'
             first_name = 'Jonalyn'
             last_name = 'Rosell'
 
